@@ -1,4 +1,4 @@
-package com.ria.java.collections;
+package com.ria.gradle.collections;
 
 import java.util.Arrays;
 import java.util.List;
