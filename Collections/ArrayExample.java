@@ -1,6 +1,8 @@
 package com.ria.gradle.collections;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -57,5 +59,33 @@ public class ArrayExample {
         System.out.println(Arrays.toString(partialNames));
         System.out.println(nameSubList);
 
+        /**
+         * (5) Array Union and Intersection
+         */
+        Integer[] firstArray = {0, 1, 2, 3, 4};
+        Integer[] secondArray = {3, 4, 4, 5, 6};
+        HashSet<Integer> unionSet = new HashSet();
+        unionSet.addAll(Arrays.asList(firstArray));
+        unionSet.addAll(Arrays.asList(secondArray));
+
+        System.out.println(unionSet); // [0, 1, 2, 3, 4, 5, 6]
+
+        HashSet<Integer> intersectionSet = new HashSet();
+        intersectionSet.addAll(Arrays.asList(firstArray));
+        intersectionSet.retainAll(Arrays.asList(secondArray));
+
+        System.out.println(intersectionSet); // [3, 4]
+
+        /**
+         * (6) Remove duplicates by using LinkedHashSet
+         */
+        LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(Arrays.asList(secondArray));
+        System.out.println(linkedHashSet);
+
+        Integer[] secondArrayWithoutDuplicates = linkedHashSet.toArray(new Integer[] {});
+        System.out.println(Arrays.toString(secondArrayWithoutDuplicates));
+
+
     }
 }
+
