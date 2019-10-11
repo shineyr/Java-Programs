@@ -27,7 +27,7 @@ public class LRUBasedLinkedList<T> {
     public void addNode(T element) {
         SingleNode preNode = findPreNode(element);
         if (preNode != null) {
-            deleteNextNode(preNode);
+            deleteNode(preNode);
         } else {
             if (this.length >= this.capacity) {
                 deleteEndNode();
@@ -36,7 +36,11 @@ public class LRUBasedLinkedList<T> {
         insertNodeAtBegin(element);
     }
 
-    private void deleteNextNode(SingleNode preNode){
+    /**
+     * Delete the node by using the previous node
+     * @param preNode
+     */
+    private void deleteNode(SingleNode preNode){
         SingleNode targetNode = preNode.getNext();
         preNode.setNext(targetNode.getNext());
 
@@ -49,14 +53,15 @@ public class LRUBasedLinkedList<T> {
             return;
         }
         /**
-         * 找到最后一个节点
+         * 找到倒数第二个节点
          */
         SingleNode preNode = headNode;
-        while(preNode.getNext() != null) {
+        while(preNode.getNext().getNext() != null) {
             preNode = preNode.getNext();
         }
 
         SingleNode endNode = preNode.getNext();
+        preNode.setNext(null);
         endNode = null;
         --length;
     }
@@ -111,7 +116,7 @@ public class LRUBasedLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        LRUBasedLinkedList<Integer> lruList = new LRUBasedLinkedList<>();
+        LRUBasedLinkedList<Integer> lruList = new LRUBasedLinkedList<>(3);
 
         Integer[] arrays = {1, 2, 2, 4, 1, 6, 10, 5, 3, 4, 4, 5, 8, 6, 12, 10, 6, 8};
         for (Integer element : arrays) {
