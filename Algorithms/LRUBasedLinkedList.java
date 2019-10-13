@@ -1,4 +1,4 @@
-package com.ria.gradle.algorithms;
+package com.ria.gradle.algorithms.list;
 
 import lombok.Data;
 
@@ -8,24 +8,24 @@ import lombok.Data;
  */
 public class LRUBasedLinkedList<T> {
     private static final int MAX_CAPACITY = 10;
-    private SingleNode<T> headNode;
+    private SinglyNode<T> head;
     private int length;
     private int capacity;
 
     public LRUBasedLinkedList() {
-        this.headNode = new SingleNode<>();
+        this.head = new SinglyNode<>();
         this.length = 0;
         this.capacity = MAX_CAPACITY;
     }
 
     public LRUBasedLinkedList(int capacity) {
-        this.headNode = new SingleNode<>();
+        this.head = new SinglyNode<>();
         this.length = 0;
         this.capacity = capacity;
     }
 
-    public void addNode(T element) {
-        SingleNode preNode = findPreNode(element);
+    public void add(T element) {
+        SinglyNode preNode = findPreNode(element);
         if (preNode != null) {
             deleteNode(preNode);
         } else {
@@ -40,76 +40,83 @@ public class LRUBasedLinkedList<T> {
      * Delete the node by using the previous node
      * @param preNode
      */
-    private void deleteNode(SingleNode preNode){
-        SingleNode targetNode = preNode.getNext();
-        preNode.setNext(targetNode.getNext());
+    private void deleteNode(SinglyNode preNode){
+        SinglyNode targetNode = preNode.next;
+        preNode.next = targetNode.next;
 
         targetNode = null;
         --length;
     }
 
     private void deleteEndNode() {
-        if (headNode.getNext() == null) {
+        if (head.next == null) {
             return;
         }
         /**
          * 找到倒数第二个节点
          */
-        SingleNode preNode = headNode;
-        while(preNode.getNext().getNext() != null) {
-            preNode = preNode.getNext();
+        SinglyNode preNode = head;
+        while(preNode.next.next != null) {
+            preNode = preNode.next;
         }
 
-        SingleNode endNode = preNode.getNext();
-        preNode.setNext(null);
+        SinglyNode endNode = preNode.next;
+        preNode.next = null;
         endNode = null;
         --length;
     }
 
     private void insertNodeAtBegin(T element) {
-        SingleNode newNode = new SingleNode(element);
-        newNode.setNext(headNode.getNext());
-        headNode.setNext(newNode);
+        SinglyNode newNode = new SinglyNode(element);
+        newNode.next = head.next;
+        head.next = newNode;
         ++length;
     }
 
-    private SingleNode findPreNode(T element) {
-        SingleNode curNode = headNode;
-        while(curNode.getNext() != null) {
-            if(curNode.getNext().getElement() == element) {
+    private SinglyNode findPreNode(T element) {
+        SinglyNode curNode = head;
+        while(curNode.next != null) {
+            if(curNode.next.element == element) {
                 return curNode;
             }
-            curNode = curNode.getNext();
+            curNode = curNode.next;
         }
         return null;
     }
 
-    public void printList() {
-        SingleNode curNode = headNode;
-        System.out.print("[ ");
-        while (curNode.getNext() != null) {
-            System.out.print(curNode.getNext().getElement() + " ");
-            curNode = curNode.getNext();
+    @Override
+    public String toString() {
+        if (head == null) {
+            return "[]";
         }
-        System.out.println("]");
+
+        SinglyNode curNode = head;
+        String str = "[ ";
+
+        while (curNode.next != null) {
+            str = str + curNode.next.element + " ";
+            curNode = curNode.next;
+        }
+        str += "]";
+
+        return str;
     }
 
-
     @Data
-    public class SingleNode<T> {
-        private T element;
-        private SingleNode next;
+    private class SinglyNode<T> {
+        T element;
+        SinglyNode next;
 
-        public SingleNode() {
+        SinglyNode() {
             this.next = null;
         }
 
-        public SingleNode(T element) {
+        SinglyNode(T element) {
             this.element = element;
             this.next = null;
         }
 
-        public SingleNode(T element, SingleNode next) {
+        SinglyNode(T element, SinglyNode next) {
             this.element = element;
             this.next = next;
         }
@@ -120,8 +127,30 @@ public class LRUBasedLinkedList<T> {
 
         Integer[] arrays = {1, 2, 2, 4, 1, 6, 10, 5, 3, 4, 4, 5, 8, 6, 12, 10, 6, 8};
         for (Integer element : arrays) {
-            lruList.addNode(element);
-            lruList.printList();
+            lruList.add(element);
+            System.out.println(lruList);
         }
+        
+        /** output
+            [ 1 ]
+            [ 2 1 ]
+            [ 2 1 ]
+            [ 4 2 1 ]
+            [ 1 4 2 ]
+            [ 6 1 4 ]
+            [ 10 6 1 ]
+            [ 5 10 6 ]
+            [ 3 5 10 ]
+            [ 4 3 5 ]
+            [ 4 3 5 ]
+            [ 5 4 3 ]
+            [ 8 5 4 ]
+            [ 6 8 5 ]
+            [ 12 6 8 ]
+            [ 10 12 6 ]
+            [ 6 10 12 ]
+            [ 8 6 10 ]
+         
+         */
     }
 }
