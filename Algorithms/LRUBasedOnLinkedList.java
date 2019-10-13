@@ -6,19 +6,19 @@ import lombok.Data;
  * 专栏地址：https://time.geekbang.org/column/article/41013?code=aJIP6C40Btc-FTIYUuqyl0OWq4qsaCL4GbzhkToY12Y%3D
  * 主题：06 | 链表（上）：如何实现LRU缓存淘汰算法?
  */
-public class LRUBasedLinkedList<T> {
+public class LRUBasedOnLinkedList<T> {
     private static final int MAX_CAPACITY = 10;
     private SinglyNode<T> head;
     private int length;
     private int capacity;
 
-    public LRUBasedLinkedList() {
+    public LRUBasedOnLinkedList() {
         this.head = new SinglyNode<>();
         this.length = 0;
         this.capacity = MAX_CAPACITY;
     }
 
-    public LRUBasedLinkedList(int capacity) {
+    public LRUBasedOnLinkedList(int capacity) {
         this.head = new SinglyNode<>();
         this.length = 0;
         this.capacity = capacity;
@@ -123,14 +123,14 @@ public class LRUBasedLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        LRUBasedLinkedList<Integer> lruList = new LRUBasedLinkedList<>(3);
+        LRUBasedOnLinkedList<Integer> lruList = new LRUBasedOnLinkedList<>(3);
 
         Integer[] arrays = {1, 2, 2, 4, 1, 6, 10, 5, 3, 4, 4, 5, 8, 6, 12, 10, 6, 8};
         for (Integer element : arrays) {
             lruList.add(element);
             System.out.println(lruList);
         }
-        
+
         /** output
             [ 1 ]
             [ 2 1 ]
@@ -150,7 +150,7 @@ public class LRUBasedLinkedList<T> {
             [ 10 12 6 ]
             [ 6 10 12 ]
             [ 8 6 10 ]
-         
+
          */
     }
 }
