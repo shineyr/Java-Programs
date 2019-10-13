@@ -41,16 +41,29 @@ public class StackBasedArray<T> {
         }
     }
 
+    public T top() {
+        if (size == 0) {
+            return null;
+        } else {
+            return data[size-1];
+        }
+    }
+
     public static void main(String[] args) {
         StackBasedArray<Integer> stackBasedArray = new StackBasedArray(Integer.class);
 
         Arrays.asList(1,2,3,4,5,6).forEach(element -> stackBasedArray.push(Integer.class, element));
 
-        System.out.println("stackBasedArray.size:" + stackBasedArray.size);
+        System.out.println("stackBasedArray.size:" + stackBasedArray.size); // 6
+
+        System.out.println("stackBasedArray.top(): " + stackBasedArray.top()); // 6
 
         Arrays.asList(1,2,3,4,5,6,7,8,9,0).forEach(element -> stackBasedArray.push(Integer.class, element));
 
-        System.out.println("stackBasedArray.size:" +  stackBasedArray.size);
+        System.out.println("stackBasedArray.size:" +  stackBasedArray.size); // 16
+
+        System.out.println("stackBasedArray.top(): " + stackBasedArray.top()); // 0
+
 
         while (stackBasedArray.size > 0) {
             System.out.print(stackBasedArray.pop() + " ");
