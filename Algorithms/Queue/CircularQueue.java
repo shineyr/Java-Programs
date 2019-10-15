@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
- * 循环双端队列
+ * 循环队列
  */
 public class CircularQueue<T> {
     private static int CAPACITY = 5;
