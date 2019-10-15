@@ -48,7 +48,7 @@ public class StackBasedOnLinkedList<T> {
         return result;
     }
 
-    private class SinglyNode<T> {
+    private static class SinglyNode<T> {
         T value;
         SinglyNode next;
 
@@ -57,8 +57,9 @@ public class StackBasedOnLinkedList<T> {
             this.next = null;
         }
     }
+}
 
-
+class StackBasedOnLinkedListTest {
     public static void main(String[] args) {
         StackBasedOnLinkedList<Integer> stackBasedOnLinkedList = new StackBasedOnLinkedList();
 
