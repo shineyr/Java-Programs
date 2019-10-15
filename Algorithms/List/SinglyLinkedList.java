@@ -312,5 +312,9 @@ public class SinglyLinkedList<T extends Comparable> {
         Integer middleValue = (Integer) mergedList.getMiddleNode();
         System.out.println(middleValue); // 4
 
+        deletedValue = (Integer) mergedList.deleteFromTail();
+        System.out.println(deletedValue); // 9
+        System.out.println(mergedList); // [ 1 1 1 2 2 2 4 4 4 5 6 7 7 8 9 ]
+
     }
 }
