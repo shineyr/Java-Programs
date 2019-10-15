@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
- * 基于数组实现双端队列
+ * 基于数组实现队列
  */
 public class QueueBasedOnArray<T> {
     private static int CAPACITY = 5;
