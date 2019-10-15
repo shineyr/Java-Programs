@@ -70,7 +70,9 @@ public class BrowserBasedOnStack<T> {
 
         currentPage = backwardStack.peek();
     }
+}
 
+class BrowserBasedOnStackTest {
     public static void main(String[] args) {
         BrowserBasedOnStack browser = new BrowserBasedOnStack();
         List<BrowserPage> pages = Arrays.asList(new BrowserPage("Google", "www.google.com"),
