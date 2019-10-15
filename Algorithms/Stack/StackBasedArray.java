@@ -6,16 +6,20 @@ import java.util.Arrays;
 /**
  * 基于数组实现栈
  */
-public class StackBasedArray<T> {
+public class StackBasedOnArray<T> {
     private static int CAPACITY = 10;
     private T[] data;
     private int size;
 
-    public StackBasedArray(Class<T> type) {
+    public StackBasedOnArray(Class<T> type) {
         this.data = (T[]) Array.newInstance(type, CAPACITY);
         size = 0;
     }
 
+    public int getSize() {
+        return this.size;
+    }
+    
     public void push(Class<T> type, T element) {
         if (size < CAPACITY) {
             data[size] = element;
@@ -48,28 +52,30 @@ public class StackBasedArray<T> {
             return data[size-1];
         }
     }
+}
 
+class StackBasedOnArrayTest {
     public static void main(String[] args) {
-        StackBasedArray<Integer> stackBasedArray = new StackBasedArray(Integer.class);
+        StackBasedOnArray<Integer> stackBasedOnArray = new StackBasedOnArray(Integer.class);
 
-        Arrays.asList(1,2,3,4,5,6).forEach(element -> stackBasedArray.push(Integer.class, element));
+        Arrays.asList(1,2,3,4,5,6).forEach(element -> stackBasedOnArray.push(Integer.class, element));
 
-        System.out.println("stackBasedArray.size:" + stackBasedArray.size); // 6
+        System.out.println("stackBasedArray.size:" + stackBasedOnArray.getSize()); // 6
 
-        System.out.println("stackBasedArray.top(): " + stackBasedArray.top()); // 6
+        System.out.println("stackBasedArray.top(): " + stackBasedOnArray.top()); // 6
 
-        Arrays.asList(1,2,3,4,5,6,7,8,9,0).forEach(element -> stackBasedArray.push(Integer.class, element));
+        Arrays.asList(1,2,3,4,5,6,7,8,9,0).forEach(element -> stackBasedOnArray.push(Integer.class, element));
 
-        System.out.println("stackBasedArray.size:" +  stackBasedArray.size); // 16
+        System.out.println("stackBasedArray.size:" +  stackBasedOnArray.getSize()); // 16
 
-        System.out.println("stackBasedArray.top(): " + stackBasedArray.top()); // 0
+        System.out.println("stackBasedArray.top(): " + stackBasedOnArray.top()); // 0
 
 
-        while (stackBasedArray.size > 0) {
-            System.out.print(stackBasedArray.pop() + " ");
+        while (stackBasedOnArray.getSize() > 0) {
+            System.out.print(stackBasedOnArray.pop() + " ");
         } // 0 9 8 7 6 5 4 3 2 1 6 5 4 3 2 1
 
         System.out.println();
-        System.out.println("stackBasedArray.size: " + stackBasedArray.size); // 0
+        System.out.println("stackBasedArray.size: " + stackBasedOnArray.getSize()); // 0
     }
 }
