@@ -170,7 +170,7 @@ public class DoublyLinkedList<T> {
         return str;
     }
 
-    private class DoublyNode<T> {
+    private static class DoublyNode<T> {
         T element;
         DoublyNode prev;
         DoublyNode next;
@@ -192,7 +192,9 @@ public class DoublyLinkedList<T> {
             this.next = next;
         }
     }
+}
 
+class DoublyLinkedListTest {
 
     public static void main(String[] args) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
