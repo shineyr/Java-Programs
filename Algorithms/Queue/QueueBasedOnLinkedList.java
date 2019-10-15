@@ -3,7 +3,7 @@ package com.ria.gradle.algorithms.queue;
 import java.util.Arrays;
 
 /**
- * 基于单链表的双端队列
+ * 基于单链表的队列
  */
 public class QueueBasedOnLinkedList<T> {
     private SinglyNode head;
