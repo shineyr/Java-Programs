@@ -103,7 +103,7 @@ public class LRUBasedOnLinkedList<T> {
     }
 
     @Data
-    private class SinglyNode<T> {
+    private static class SinglyNode<T> {
         T element;
         SinglyNode next;
 
@@ -121,7 +121,9 @@ public class LRUBasedOnLinkedList<T> {
             this.next = next;
         }
     }
+}
 
+class LRUBasedOnLinkedListTest {
     public static void main(String[] args) {
         LRUBasedOnLinkedList<Integer> lruList = new LRUBasedOnLinkedList<>(3);
 
@@ -132,25 +134,24 @@ public class LRUBasedOnLinkedList<T> {
         }
 
         /** output
-            [ 1 ]
-            [ 2 1 ]
-            [ 2 1 ]
-            [ 4 2 1 ]
-            [ 1 4 2 ]
-            [ 6 1 4 ]
-            [ 10 6 1 ]
-            [ 5 10 6 ]
-            [ 3 5 10 ]
-            [ 4 3 5 ]
-            [ 4 3 5 ]
-            [ 5 4 3 ]
-            [ 8 5 4 ]
-            [ 6 8 5 ]
-            [ 12 6 8 ]
-            [ 10 12 6 ]
-            [ 6 10 12 ]
-            [ 8 6 10 ]
-
+         [ 1 ]
+         [ 2 1 ]
+         [ 2 1 ]
+         [ 4 2 1 ]
+         [ 1 4 2 ]
+         [ 6 1 4 ]
+         [ 10 6 1 ]
+         [ 5 10 6 ]
+         [ 3 5 10 ]
+         [ 4 3 5 ]
+         [ 4 3 5 ]
+         [ 5 4 3 ]
+         [ 8 5 4 ]
+         [ 6 8 5 ]
+         [ 12 6 8 ]
+         [ 10 12 6 ]
+         [ 6 10 12 ]
+         [ 8 6 10 ]
          */
     }
 }
