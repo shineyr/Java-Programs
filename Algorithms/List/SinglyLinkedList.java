@@ -7,8 +7,8 @@ import java.util.Collection;
  * 单链表 - 不带哨兵
  */
 public class SinglyLinkedList<T extends Comparable> {
-    SinglyNode head;
-    int size;
+    private SinglyNode head;
+    private int size;
 
     public SinglyLinkedList() {
         this.head = null;
@@ -62,6 +62,44 @@ public class SinglyLinkedList<T extends Comparable> {
      */
     public void addAllToTail(Collection<T> collection) {
         collection.forEach(element -> addToTail(element));
+    }
+
+    /**
+     * 删除最后一个节点
+     * @return
+     */
+    public T deleteFromTail() {
+        return deleteFromTail(1);
+    }
+
+    /**
+     * 删除倒数第n个节点
+     * @param n
+     * @return
+     */
+    public T deleteFromTail(int n) {
+        if (n > size) {
+            return null;
+        }
+
+        SinglyNode first = head;
+        int idx = 0;
+        while (idx < n) {
+            first = first.next;
+            ++idx;
+        }
+
+        SinglyNode second = head;
+        while (first.next != null) {
+            second = second.next;
+            first = first.next;
+        }
+
+        SinglyNode node = second.next;
+        second.next = second.next.next;
+        T ret = (T) node.value;
+        node = null;
+        return ret;
     }
 
     @Override
@@ -173,7 +211,6 @@ public class SinglyLinkedList<T extends Comparable> {
      */
     public SinglyLinkedList sortedMerge(SinglyLinkedList list) {
         SinglyLinkedList result = new SinglyLinkedList();
-
         SinglyNode first = this.head, second = list.head;
         while(first != null && second != null) {
            if (first.compareTo(second) < 0) {
@@ -199,36 +236,6 @@ public class SinglyLinkedList<T extends Comparable> {
     }
 
     /**
-     * 删除倒数第n个节点
-     * @param n
-     * @return
-     */
-    public T deleteFromEnd(int n) {
-        if (n > size) {
-            return null;
-        }
-
-        SinglyNode first = head;
-        int idx = 0;
-        while (idx < n) {
-            first = first.next;
-            ++idx;
-        }
-
-        SinglyNode second = head;
-        while(first.next != null) {
-            second = second.next;
-            first = first.next;
-        }
-
-        SinglyNode node = second.next;
-        second.next = second.next.next;
-        T ret = (T) node.value;
-        node = null;
-        return ret;
-    }
-
-    /**
      * 求链表中间节点
      * @return
      */
@@ -248,7 +255,7 @@ public class SinglyLinkedList<T extends Comparable> {
         }
     }
 
-    private class SinglyNode<T extends Comparable<? super T>> implements Comparable<SinglyNode<T>> {
+    private static class SinglyNode<T extends Comparable<? super T>> implements Comparable<SinglyNode<T>> {
         T value;
         SinglyNode next;
 
@@ -267,6 +274,10 @@ public class SinglyLinkedList<T extends Comparable> {
         }
     }
 
+
+}
+
+ class Test {
     public static void main(String[] args) {
         SinglyLinkedList firstList = new SinglyLinkedList();
         firstList.addAllToHead(Arrays.asList(1,2,1,9,3,4,7,8));
@@ -281,7 +292,7 @@ public class SinglyLinkedList<T extends Comparable> {
 
 
         boolean isCircled = firstList.checkCircle();
-        System.out.println(isCircled);
+        System.out.println(isCircled); // false
 
         SinglyLinkedList secondList = new SinglyLinkedList();
         secondList.addAllToTail(Arrays.asList(2,1,4,7,9,2,4,5,6));
@@ -294,7 +305,7 @@ public class SinglyLinkedList<T extends Comparable> {
         System.out.println(mergedList); // [ 1 1 1 2 2 2 3 4 4 4 5 6 7 7 8 9 9 ]
 
 
-        Integer deletedValue = (Integer) mergedList.deleteFromEnd(11);
+        Integer deletedValue = (Integer) mergedList.deleteFromTail(11);
         System.out.println(deletedValue); // 3
         System.out.println(mergedList); // [ 1 1 1 2 2 2 4 4 4 5 6 7 7 8 9 9 ]
 
