@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 /**
  * 快速排序
- *
+ * 空间复杂度 O(1) - 原地排序
+ * 相同元素相对位置改变 - 非稳定排序
+ * 最好时间复杂度 O(nlogn), 最坏 O(n^2), 平均 O(nlogn)
  */
 public class QuickSort {
     public void quickSort(int[] array) {
