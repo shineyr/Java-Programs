@@ -34,10 +34,36 @@ public class BubbleSort {
         }
     }
 
-    public static void main(String[] args) {
-        int array[] = {3,1,5,6,2,8,9,2,4,5,6,8,10};
+    /**
+     * 第二种冒泡实现思想
+     * @param array
+     */
+    public void bubbleSort2(int[] array) {
+        int len = array.length;
+        if (len <= 1) {
+            return;
+        }
 
+        // 每次将i位置的元素，持续与后续元素比较，每次结束i位置即是最小元素
+        for (int i=0; i<len; ++i) {
+            for (int j=i+1; j<len; ++j) {
+                if (array[j] < array[i]) {
+                    int tmp = array[j];
+                    array[j] = array[i];
+                    array[i] = tmp;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] array = {3,1,5,6,2,8,9,2,4,5,6,8,10};
         new BubbleSort().bubbleSort(array);
         System.out.println(Arrays.toString(array));
+
+        int[] array2 = {3,1,5,6,2,8,9,2,4,5,6,8,10};
+
+        new BubbleSort().bubbleSort2(array2);
+        System.out.println(Arrays.toString(array2));
     }
 }
