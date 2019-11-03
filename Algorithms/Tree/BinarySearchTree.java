@@ -3,6 +3,7 @@ package com.ria.gradle.algorithms.tree;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 二叉查找树实现
@@ -226,6 +227,129 @@ public class BinarySearchTree<T extends Comparable> {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
+    /**
+     * 前序遍历非递归算法
+     * @param node
+     * @return
+     */
+    public List<T> preOrderNonRecursion(TreeNode node) {
+        List<T> result = new ArrayList<>();
+
+        if (node == null) {
+            return result;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+
+            result.add((T) current.value);
+
+            if (current.right != null) {
+                stack.push(current.right);
+            }
+
+            if (current.left != null) {
+                stack.push(current.left);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 非递归中序遍历
+     * @param node
+     * @return
+     */
+    public List<T> inOrderNonRecursion(TreeNode node) {
+        List<T> result = new ArrayList<>();
+
+        if (node == null) {
+            return result;
+        }
+
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode current = node;
+
+        while (!stack.isEmpty() || current != null) {
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                current = stack.pop();
+
+                result.add((T) current.value);
+                current = current.right;
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * 非递归后序遍历1
+     * @param node
+     */
+    public List<T> postOrderNonRecursion1(TreeNode node) {
+        List<T> result = new ArrayList<>();
+
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+
+        stack1.push(node);
+        while (!stack1.isEmpty()) {
+            TreeNode current = stack1.pop();
+
+            stack2.push(current);
+            if (current.left != null) {
+                stack1.push(current.left);
+            }
+
+            if (current.right != null) {
+                stack1.push(current.right);
+            }
+        }
+
+        while (!stack2.isEmpty()) {
+            result.add((T) stack2.pop().value);
+        }
+        return result;
+    }
+
+    /**
+     * 非递归后序遍历2
+     * @param node
+     */
+    public List<T> postOrderNonRecursion2(TreeNode node) {
+        List<T> result = new ArrayList<>();
+
+
+        Stack<TreeNode> stack = new Stack<>();
+
+        TreeNode current = node;
+        stack.push(node);
+        while (!stack.isEmpty()) {
+
+            TreeNode tmp = stack.peek();
+
+            if (tmp.left != null && current != tmp.left && current != tmp.right) {
+                stack.push(tmp.left);
+            } else if (tmp.right != null && current != tmp.right) {
+                stack.push(tmp.right);
+            } else {
+                result.add((T) tmp.value);
+                current = tmp;
+                stack.pop();
+            }
+        }
+
+        return result;
+    }
+
+
     public static class TreeNode<T extends Comparable<? super T>> implements Comparable<TreeNode<T>> {
         T value;
         TreeNode left;
@@ -259,9 +383,16 @@ class BinarySearchTreeTest {
                 }
         );
 
-        System.out.println(tree.preOrder(tree.root).toString());
-        System.out.println(tree.inOrder(tree.root).toString());
-        System.out.println(tree.postOrder(tree.root).toString());
+        System.out.println("Pre-order:" + tree.preOrder(tree.root).toString());
+        System.out.println("Pre-Order:" + tree.preOrderNonRecursion(tree.root).toString());
+
+        System.out.println("In-Order:" + tree.inOrder(tree.root).toString());
+        System.out.println("In-Order:" + tree.inOrderNonRecursion(tree.root).toString());
+
+        System.out.println("Post-Order:" + tree.postOrder(tree.root).toString());
+        System.out.println("Post-Order:" + tree.postOrderNonRecursion1(tree.root).toString());
+        System.out.println("Post-Order:" + tree.postOrderNonRecursion2(tree.root).toString());
+
 
         System.out.println("The height is: " + tree.height(tree.root));
 
