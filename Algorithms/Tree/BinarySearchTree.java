@@ -162,12 +162,11 @@ public class BinarySearchTree<T extends Comparable> {
      */
     public List<T> preOrder(TreeNode node) {
         List<T> result = new ArrayList<>();
-        TreeNode p = node;
-        if (p == null) {
+        if (node == null) {
             return result;
         }
 
-        result.add((T) p.value);
+        result.add((T) node.value);
         result.addAll(preOrder(node.left));
         result.addAll(preOrder(node.right));
         return result;
@@ -181,15 +180,13 @@ public class BinarySearchTree<T extends Comparable> {
     public List<T> inOrder(TreeNode node) {
         List<T> result = new ArrayList<>();
 
-        TreeNode p = node;
-
-        if (p == null) {
+        if (node == null) {
             return result;
         }
 
         result.addAll(inOrder(node.left));
-        result.add((T) p.value);
-        result.addAll(inOrder(p.right));
+        result.add((T) node.value);
+        result.addAll(inOrder(node.right));
 
         return result;
     }
@@ -202,17 +199,31 @@ public class BinarySearchTree<T extends Comparable> {
     public List<T> postOrder(TreeNode node) {
         List<T> result = new ArrayList<>();
 
-        TreeNode p = node;
-
-        if (p == null) {
+        if (node == null) {
             return result;
         }
 
-        result.addAll(inOrder(node.left));
-        result.addAll(inOrder(p.right));
-        result.add((T) p.value);
+        result.addAll(postOrder(node.left));
+        result.addAll(postOrder(node.right));
+        result.add((T) node.value);
 
         return result;
+    }
+
+    /**
+     *  求二叉树的高度
+     * @param node
+     * @return
+     */
+    public int height(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 
     public static class TreeNode<T extends Comparable<? super T>> implements Comparable<TreeNode<T>> {
@@ -252,6 +263,7 @@ class BinarySearchTreeTest {
         System.out.println(tree.inOrder(tree.root).toString());
         System.out.println(tree.postOrder(tree.root).toString());
 
+        System.out.println("The height is: " + tree.height(tree.root));
 
         System.out.println(tree.findMax());
         System.out.println(tree.findMin());
@@ -260,5 +272,8 @@ class BinarySearchTreeTest {
         System.out.println(tree.preOrder(tree.root).toString());
         System.out.println(tree.inOrder(tree.root).toString());
         System.out.println(tree.postOrder(tree.root).toString());
+
+        System.out.println("The height is: " + tree.height(tree.root));
+
     }
 }
